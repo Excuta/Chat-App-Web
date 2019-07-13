@@ -4,7 +4,7 @@ import com.piedpiper.piperchat.bean.security.BCryptor;
 import com.piedpiper.piperchat.data.model.User;
 import com.piedpiper.piperchat.data.repo.UserRepo;
 import com.piedpiper.piperchat.data.requestbody.Credentials;
-import com.piedpiper.piperchat.exception.IncorrectCredentialsException;
+import com.piedpiper.piperchat.exception.InvalidCredentialsException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -45,7 +45,7 @@ public class LoginServiceImplTest {
         verifyNoMoreInteractions(userRepo, bCryptor);
     }
 
-    @Test(expected = IncorrectCredentialsException.class)
+    @Test(expected = InvalidCredentialsException.class)
     public void attemptLogin_user_doesnt_exist() {
         Credentials credentials = Credentials.test();
         User user = new User();
@@ -54,7 +54,7 @@ public class LoginServiceImplTest {
         loginService.attemptLogin(credentials);
     }
 
-    @Test(expected = IncorrectCredentialsException.class)
+    @Test(expected = InvalidCredentialsException.class)
     public void attemptLogin_wrong_password() {
         Credentials credentials = Credentials.test();
         User user = new User();

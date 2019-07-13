@@ -1,5 +1,6 @@
 package com.piedpiper.piperchat.advice;
 
+import com.piedpiper.piperchat.exception.InvalidCredentialsException;
 import com.piedpiper.piperchat.exception.UserAlreadyExistsException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class RegistrationAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({IllegalArgumentException.class,
-        UserAlreadyExistsException.class})
+        UserAlreadyExistsException.class,
+        InvalidCredentialsException.class})
     public ResponseEntity<Object> handleInvalidInput(Exception exception, WebRequest request) {
         return handleExceptionInternal(exception,
                                        null,
