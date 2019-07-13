@@ -16,7 +16,6 @@ import static org.mockito.Mockito.*;
 /**
  * Created By: Yahia
  */
-@RunWith(JUnit4.class)
 public class SignUpServiceImplTest {
 
     private SignUpServiceImpl signUpService;

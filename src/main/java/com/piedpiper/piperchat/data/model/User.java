@@ -4,6 +4,7 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
@@ -20,10 +21,12 @@ public class User {
     private Long Id;
 
     @NotNull
+    @NotEmpty
     private String firstName;
     @Nullable
     private String lastName;
     @NotNull
+    @NotEmpty
     @Email
     private String email;
     @NotNull
@@ -39,17 +42,26 @@ public class User {
     public User() {
     }
 
-    public User(@NotNull String firstName, @Nullable String lastName, @NotNull @Email String email) {
+    public User(@NotNull String firstName, @Nullable String lastName, @NotNull @Email String email, @NotNull @Size(min = 3) String password, @Nullable Set<Conversation> conversations) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
+        if (conversations != null) this.conversations.addAll(conversations);
     }
 
-    public User(@NotNull String firstName, @Nullable String lastName, @NotNull @Email String email, Set<Conversation> conversations) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.conversations.addAll(conversations);
+    public static User testUser() {
+        User user = new User("first", "last", "email@domain.com", "validPassowrd123*", null);
+        user.setId(2L);
+        return user;
+    }
+
+    public Long getId() {
+        return Id;
+    }
+
+    private void setId(Long id) {
+        Id = id;
     }
 
     public String getFirstName() {

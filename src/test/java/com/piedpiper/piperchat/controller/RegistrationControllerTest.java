@@ -1,15 +1,65 @@
 package com.piedpiper.piperchat.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.piedpiper.piperchat.advice.RegistrationAdvice;
+import com.piedpiper.piperchat.data.model.User;
+import com.piedpiper.piperchat.service.registration.signup.SignUpService;
 import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Created By: Yahia
  */
 public class RegistrationControllerTest {
 
+    private MockMvc mockMvc;
+    private RegistrationController registrationController;
+    @Mock
+    private SignUpService signUpService;
+
+    private ObjectMapper objectMapper;
+
     @Before
     public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        objectMapper = new ObjectMapper();
+        registrationController = new RegistrationController(signUpService);
+        mockMvc = MockMvcBuilders.standaloneSetup(registrationController)
+            .setControllerAdvice(RegistrationAdvice.class).build();
+    }
+
+    @Test
+    public void signup_valid_input() throws Exception {
+        User user = User.testUser();
+        user.setPassword("validPassowrd");
+
+        mockMvc.perform(post("/registration/signup")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(user))
+                            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+        verify(signUpService, times(1)).createUser(user);
+        verifyNoMoreInteractions(signUpService);
+    }
+
+    @Test
+    public void signup_invalid_input() throws Exception {
+        User user = new User("", "", "", "", null);
+        user.setPassword("");
+
+        mockMvc.perform(post("/registration/signup")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(user))
+                            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().is4xxClientError());
     }
 }
