@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "cbc5d630-b80b-4f57-9d1c-b90b4a585834",
+		"name": "piper chat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "sign up",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ac",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"firstName\":\"hi\",\r\n\t\"lastName\":\" you\",\r\n\t\"email\":\"ymr_15@live.com\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/registration/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registration",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"ymr_15@live.com\",\n\t\"password\":\"122f1\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/registration/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"registration",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
