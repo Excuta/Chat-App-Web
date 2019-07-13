@@ -9,5 +9,4 @@ public class PiperChatApplication {
     public static void main(String[] args) {
         SpringApplication.run(PiperChatApplication.class, args);
     }
-
 }

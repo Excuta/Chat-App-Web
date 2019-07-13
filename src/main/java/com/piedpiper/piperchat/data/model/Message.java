@@ -1,8 +1,9 @@
 package com.piedpiper.piperchat.data.model;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.util.Objects;
 
 /**
@@ -15,7 +16,7 @@ public class Message {
     private Long Id;
     @NotNull
     private String text;
-    @Null
+    @Nullable
     @ManyToOne
     private Conversation conversation;
 
@@ -26,7 +27,7 @@ public class Message {
         this.text = text;
     }
 
-    public Message(@NotNull String text, @Null Conversation conversation) {
+    public Message(@NotNull String text, @Nullable Conversation conversation) {
         this.text = text;
         this.conversation = conversation;
     }

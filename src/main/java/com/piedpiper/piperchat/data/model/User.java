@@ -1,9 +1,10 @@
 package com.piedpiper.piperchat.data.model;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -19,28 +20,28 @@ public class User {
 
     @NotNull
     private String firstName;
-    @Null
+    @Nullable
     private String lastName;
     @NotNull
     @Email
     private String email;
     @ManyToMany
     @JoinTable(name = "user_conversation",
-    joinColumns = @JoinColumn(name = "user_id"),
-    inverseJoinColumns = @JoinColumn(name = "conversation_id"))
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "conversation_id"))
     private Set<Conversation> conversations = new HashSet<>();
 //    private byte[] picture; todo implement probably create a model
 
     public User() {
     }
 
-    public User(@NotNull String firstName, @Null String lastName, @NotNull @Email String email) {
+    public User(@NotNull String firstName, @Nullable String lastName, @NotNull @Email String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
     }
 
-    public User(@NotNull String firstName, @Null String lastName, @NotNull @Email String email, Set<Conversation> conversations) {
+    public User(@NotNull String firstName, @Nullable String lastName, @NotNull @Email String email, Set<Conversation> conversations) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
