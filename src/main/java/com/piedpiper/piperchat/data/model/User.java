@@ -1,6 +1,7 @@
-package com.piedpiper.piperchat.model;
+package com.piedpiper.piperchat.data.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.util.HashSet;
@@ -20,6 +21,9 @@ public class User {
     private String firstName;
     @Null
     private String lastName;
+    @NotNull
+    @Email
+    private String email;
     @ManyToMany
     @JoinTable(name = "user_conversation",
     joinColumns = @JoinColumn(name = "user_id"),
@@ -30,14 +34,16 @@ public class User {
     public User() {
     }
 
-    public User(@NotNull String firstName, @Null String lastName) {
+    public User(@NotNull String firstName, @Null String lastName, @NotNull @Email String email) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
     }
 
-    public User(@NotNull String firstName, @Null String lastName, Set<Conversation> conversations) {
+    public User(@NotNull String firstName, @Null String lastName, @NotNull @Email String email, Set<Conversation> conversations) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
         this.conversations.addAll(conversations);
     }
 
@@ -61,6 +67,10 @@ public class User {
         StringBuilder fullName = new StringBuilder(firstName);
         if (lastName != null) fullName.append(" ").append(lastName);
         return fullName.toString();
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public Set<Conversation> getConversations() {
@@ -87,11 +97,12 @@ public class User {
         return Id.equals(user.Id) &&
             firstName.equals(user.firstName) &&
             Objects.equals(lastName, user.lastName) &&
+            email.equals(user.email) &&
             conversations.equals(user.conversations);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Id, firstName, lastName, conversations);
+        return Objects.hash(Id, firstName, lastName, email, conversations);
     }
 }
