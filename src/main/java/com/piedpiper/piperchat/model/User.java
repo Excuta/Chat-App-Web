@@ -21,12 +21,24 @@ public class User {
     @Null
     private String lastName;
     @ManyToMany
+    @JoinTable(name = "user_conversation",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "conversation_id"))
     private Set<Conversation> conversations = new HashSet<>();
 //    private byte[] picture; todo implement probably create a model
+
+    public User() {
+    }
 
     public User(@NotNull String firstName, @Null String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    public User(@NotNull String firstName, @Null String lastName, Set<Conversation> conversations) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.conversations.addAll(conversations);
     }
 
     public String getFirstName() {
@@ -49,6 +61,22 @@ public class User {
         StringBuilder fullName = new StringBuilder(firstName);
         if (lastName != null) fullName.append(" ").append(lastName);
         return fullName.toString();
+    }
+
+    public Set<Conversation> getConversations() {
+        return conversations;
+    }
+
+    public boolean addConversation(Conversation conversation) {
+        return conversations.add(conversation);
+    }
+
+    public boolean removeConversation(Conversation conversation) {
+        return conversations.remove(conversation);
+    }
+
+    public boolean hasConversation(Conversation conversation) {
+        return conversations.contains(conversation);
     }
 
     @Override

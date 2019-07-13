@@ -14,11 +14,14 @@ public class Conversation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
-    @ManyToMany()
+    @ManyToMany(mappedBy = "conversations")
     private Set<User> users = new HashSet<>();
 
+    public Conversation() {
+    }
+
     public Conversation(Set<User> users) {
-        this.users = users;
+        this.users.addAll(users);
     }
 
     public Set<User> getUsers() {
