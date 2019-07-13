@@ -5,6 +5,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -25,6 +26,9 @@ public class User {
     @NotNull
     @Email
     private String email;
+    @NotNull
+    @Size(min = 3)
+    private String password;
     @ManyToMany
     @JoinTable(name = "user_conversation",
         joinColumns = @JoinColumn(name = "user_id"),
@@ -88,6 +92,14 @@ public class User {
 
     public boolean hasConversation(Conversation conversation) {
         return conversations.contains(conversation);
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
