@@ -25,6 +25,10 @@ public class BCryptorImpl implements BCryptor, Serializable {
         return encrypt(plain, salt);
     }
 
+    String testEncrypt(String plain, String salt) {
+        return encrypt(plain, salt);
+    }
+
     private String encrypt(String plain, String salt) {
         return BCrypt.hashpw(plain, salt);
     }
