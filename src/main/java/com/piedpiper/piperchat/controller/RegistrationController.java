@@ -1,6 +1,8 @@
 package com.piedpiper.piperchat.controller;
 
 import com.piedpiper.piperchat.data.model.User;
+import com.piedpiper.piperchat.data.requestbody.Credentials;
+import com.piedpiper.piperchat.service.registration.login.LoginService;
 import com.piedpiper.piperchat.service.registration.signup.SignUpService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +23,23 @@ import javax.validation.Valid;
 public class RegistrationController {
 
     private SignUpService signUpService;
+    private LoginService loginService;
 
-    public RegistrationController(SignUpService signUpService) {
+    public RegistrationController(SignUpService signUpService, LoginService loginService) {
         this.signUpService = signUpService;
+        this.loginService = loginService;
     }
 
     @PostMapping("/signup")
     public ResponseEntity<Object> createUser(@RequestBody @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) throw new IllegalArgumentException();
         signUpService.createUser(user);
+        return ResponseEntity.ok().build();
+    }
+    @PostMapping("/login")
+    public ResponseEntity<Object> attemptLogin(@RequestBody @Valid Credentials credentials, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) throw new IllegalArgumentException();
+        loginService.attemptLogin(credentials);
         return ResponseEntity.ok().build();
     }
 }

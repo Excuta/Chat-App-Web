@@ -37,7 +37,8 @@ public class User {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "conversation_id"))
     private Set<Conversation> conversations = new HashSet<>();
-//    private byte[] picture; todo implement probably create a model
+    //    private byte[] picture; todo implement probably create a model
+    private boolean isLoggedIn;
 
     public User() {
     }
@@ -91,6 +92,10 @@ public class User {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Set<Conversation> getConversations() {
         return conversations;
     }
@@ -113,6 +118,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        isLoggedIn = loggedIn;
     }
 
     @Override
