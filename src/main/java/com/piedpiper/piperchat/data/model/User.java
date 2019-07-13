@@ -81,7 +81,8 @@ public class User {
     }
 
     public String getFullName() {
-        StringBuilder fullName = new StringBuilder(firstName);
+        StringBuilder fullName = new StringBuilder();
+        if (firstName != null) fullName.append(firstName);
         if (lastName != null) fullName.append(" ").append(lastName);
         return fullName.toString();
     }

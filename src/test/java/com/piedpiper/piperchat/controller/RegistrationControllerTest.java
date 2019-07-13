@@ -53,8 +53,8 @@ public class RegistrationControllerTest {
 
     @Test
     public void signup_invalid_input() throws Exception {
-        User user = new User("", "", "", "", null);
-        user.setPassword("");
+        User user = new User();
+
 
         mockMvc.perform(post("/registration/signup")
                             .contentType(MediaType.APPLICATION_JSON)
