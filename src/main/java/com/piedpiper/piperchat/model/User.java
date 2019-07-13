@@ -1,11 +1,11 @@
 package com.piedpiper.piperchat.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * Created By: Yahia
@@ -20,7 +20,9 @@ public class User {
     private String firstName;
     @Null
     private String lastName;
-//    private byte[] picture; todo implement
+    @ManyToMany
+    private Set<Conversation> conversations = new HashSet<>();
+//    private byte[] picture; todo implement probably create a model
 
     public User(@NotNull String firstName, @Null String lastName) {
         this.firstName = firstName;
@@ -49,4 +51,19 @@ public class User {
         return fullName.toString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Id.equals(user.Id) &&
+            firstName.equals(user.firstName) &&
+            Objects.equals(lastName, user.lastName) &&
+            conversations.equals(user.conversations);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Id, firstName, lastName, conversations);
+    }
 }
