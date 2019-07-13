@@ -1,9 +1,9 @@
 package com.piedpiper.piperchat.service.registration.signup;
 
+import com.piedpiper.piperchat.bean.security.BCryptor;
 import com.piedpiper.piperchat.data.model.User;
 import com.piedpiper.piperchat.data.repo.UserRepo;
 import com.piedpiper.piperchat.exception.UserAlreadyExistsException;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class SignUpServiceImpl implements SignUpService {
     private UserRepo userRepo;
+    private BCryptor bCryptor;
 
-    public SignUpServiceImpl(UserRepo userRepo) {
+    public SignUpServiceImpl(UserRepo userRepo, BCryptor bCryptor) {
         this.userRepo = userRepo;
+        this.bCryptor = bCryptor;
     }
 
     @Override
@@ -25,8 +27,7 @@ public class SignUpServiceImpl implements SignUpService {
     }
 
     private void encryptPassword(User user) {
-        String salt = BCrypt.gensalt();
-        String hashedPassword = BCrypt.hashpw(user.getPassword(), salt);
-        user.setPassword(hashedPassword);
+        String encryptedPassword = bCryptor.encrypt(user.getPassword());
+        user.setPassword(encryptedPassword);
     }
 }
