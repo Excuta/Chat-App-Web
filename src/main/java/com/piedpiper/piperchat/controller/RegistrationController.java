@@ -36,6 +36,7 @@ public class RegistrationController {
         signUpService.createUser(user);
         return ResponseEntity.ok().build();
     }
+
     @PostMapping("/login")
     public ResponseEntity<Object> attemptLogin(@RequestBody @Valid Credentials credentials, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) throw new IllegalArgumentException();
