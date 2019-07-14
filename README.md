@@ -6,9 +6,9 @@
 * Remove Friend
 * Load Messages
 * Send Message
-* Delete Message
-*~~Registration~~
-*~~Login~~
+* Delete Message <br/>
+~~Registration~~ <br/>
+~~Login~~ <br/>
 ## Future TODO
 * Attachments
 * Group Chat
