@@ -1,7 +1,5 @@
 # Chat-App-Web
 ## TODO
-* Registration
-* Login
 * Logout
 * Load Friends
 * Add Friend
@@ -9,7 +7,8 @@
 * Load Messages
 * Send Message
 * Delete Message
-
+~~* Registration~~
+~~* Login~~
 ## Future TODO
 * Attachments
 * Group Chat
