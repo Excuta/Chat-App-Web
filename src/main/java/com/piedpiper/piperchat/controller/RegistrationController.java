@@ -1,6 +1,7 @@
 package com.piedpiper.piperchat.controller;
 
 import com.piedpiper.piperchat.data.model.User;
+import com.piedpiper.piperchat.data.model.user.UserResponse;
 import com.piedpiper.piperchat.data.requestbody.Credentials;
 import com.piedpiper.piperchat.service.registration.login.LoginService;
 import com.piedpiper.piperchat.service.registration.signup.SignUpService;
@@ -38,9 +39,9 @@ public class RegistrationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> attemptLogin(@RequestBody @Valid Credentials credentials, BindingResult bindingResult) {
+    public ResponseEntity<UserResponse> attemptLogin(@RequestBody @Valid Credentials credentials, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) throw new IllegalArgumentException();
-        loginService.attemptLogin(credentials);
-        return ResponseEntity.ok().build();
+        User user = loginService.attemptLogin(credentials);
+        return ResponseEntity.ok().body(UserResponse.fromUser(user));
     }
 }

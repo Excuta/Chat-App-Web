@@ -23,12 +23,13 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public void attemptLogin(Credentials credentials) {
+    public User attemptLogin(Credentials credentials) {
         Optional<User> userOptional = userRepo.findFirstByEmail(credentials.getEmail());
         if (!userOptional.isPresent()) throw new InvalidCredentialsException();
         User user = userOptional.get();
         if (!bCryptor.matches(credentials.getPassword(), user.getPassword())) throw new InvalidCredentialsException();
         user.setLoggedIn(true);
         userRepo.save(user);
+        return user;
     }
 }

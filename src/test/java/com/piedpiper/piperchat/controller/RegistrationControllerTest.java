@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.piedpiper.piperchat.advice.RegistrationAdvice;
 import com.piedpiper.piperchat.data.model.User;
 import com.piedpiper.piperchat.data.requestbody.Credentials;
+import com.piedpiper.piperchat.exception.InvalidCredentialsException;
 import com.piedpiper.piperchat.service.registration.login.LoginService;
 import com.piedpiper.piperchat.service.registration.signup.SignUpService;
 import org.junit.Before;
@@ -69,6 +70,8 @@ public class RegistrationControllerTest {
     @Test
     public void login_valid_input() throws Exception {
         Credentials credentials = Credentials.test();
+        User user =  User.testUser();
+        when(loginService.attemptLogin(credentials)).thenReturn(user);
 
         mockMvc.perform(post("/registration/login")
                             .contentType(MediaType.APPLICATION_JSON)
@@ -82,6 +85,18 @@ public class RegistrationControllerTest {
     @Test
     public void login_invalid_input() throws Exception {
         Credentials credentials = new Credentials();
+
+        mockMvc.perform(post("/registration/login")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(credentials))
+                            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void login_valid_input_user_not_exist() throws Exception {
+        Credentials credentials = Credentials.test();
+        when(loginService.attemptLogin(credentials)).thenThrow(new InvalidCredentialsException());
 
         mockMvc.perform(post("/registration/login")
                             .contentType(MediaType.APPLICATION_JSON)

@@ -25,7 +25,7 @@ public class LoginServiceImplTest {
     private BCryptor bCryptor;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         loginService = new LoginServiceImpl(userRepo, bCryptor);
     }
