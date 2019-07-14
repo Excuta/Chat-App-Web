@@ -8,7 +8,7 @@
 * Send Message
 * Delete Message <br/>
 ~~Registration~~ <br/>
-~~Login~~ <br/>
+~~Login~~
 ## Future TODO
 * Attachments
 * Group Chat
