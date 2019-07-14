@@ -18,7 +18,6 @@ import javax.validation.Valid;
 /**
  * Created By: Yahia
  */
-@Slf4j
 @RestController
 @RequestMapping("/registration")
 public class RegistrationController {
@@ -42,6 +41,6 @@ public class RegistrationController {
     public ResponseEntity<UserResponse> attemptLogin(@RequestBody @Valid Credentials credentials, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) throw new IllegalArgumentException();
         User user = loginService.attemptLogin(credentials);
-        return ResponseEntity.ok().body(UserResponse.fromUser(user));
+        return ResponseEntity.ok(UserResponse.fromUser(user));
     }
 }

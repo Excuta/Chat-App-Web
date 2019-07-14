@@ -2,6 +2,7 @@ package com.piedpiper.piperchat.advice;
 
 import com.piedpiper.piperchat.exception.InvalidCredentialsException;
 import com.piedpiper.piperchat.exception.UserAlreadyExistsException;
+import com.piedpiper.piperchat.exception.UserNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  */
 @ControllerAdvice
 @ResponseBody
-public class RegistrationAdvice extends ResponseEntityExceptionHandler {
+public class GlobalAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({IllegalArgumentException.class,
         UserAlreadyExistsException.class,
@@ -26,6 +27,15 @@ public class RegistrationAdvice extends ResponseEntityExceptionHandler {
                                        null,
                                        new HttpHeaders(),
                                        HttpStatus.BAD_REQUEST,
+                                       request);
+    }
+
+    @ExceptionHandler({UserNotFoundException.class})
+    public ResponseEntity<Object> handleNotFound(Exception exception, WebRequest request) {
+        return handleExceptionInternal(exception,
+                                       null,
+                                       new HttpHeaders(),
+                                       HttpStatus.NOT_FOUND,
                                        request);
     }
 }

@@ -1,7 +1,7 @@
 package com.piedpiper.piperchat.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.piedpiper.piperchat.advice.RegistrationAdvice;
+import com.piedpiper.piperchat.advice.GlobalAdvice;
 import com.piedpiper.piperchat.data.model.User;
 import com.piedpiper.piperchat.data.requestbody.Credentials;
 import com.piedpiper.piperchat.exception.InvalidCredentialsException;
@@ -39,7 +39,7 @@ public class RegistrationControllerTest {
         objectMapper = new ObjectMapper();
         registrationController = new RegistrationController(signUpService, loginService);
         mockMvc = MockMvcBuilders.standaloneSetup(registrationController)
-            .setControllerAdvice(RegistrationAdvice.class).build();
+            .setControllerAdvice(GlobalAdvice.class).build();
     }
 
     @Test
