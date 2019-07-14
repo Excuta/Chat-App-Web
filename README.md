@@ -7,8 +7,8 @@
 * Load Messages
 * Send Message
 * Delete Message
-~~* Registration~~
-~~* Login~~
+*~~Registration~~
+*~~Login~~
 ## Future TODO
 * Attachments
 * Group Chat
