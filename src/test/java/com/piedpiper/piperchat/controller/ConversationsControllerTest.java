@@ -71,7 +71,7 @@ public class ConversationsControllerTest {
     @Test
     public void login_valid_input_user_not_exist() throws Exception {
         String userId = "23";
-        when(conversationsService.getUserConversations(anyLong())).thenThrow(".class);
+        when(conversationsService.getUserConversations(anyLong())).thenThrow(UserNotFoundException.class);
 
         mockMvc.perform(get("/conversations/" + userId)
                             .contentType(MediaType.APPLICATION_JSON)
