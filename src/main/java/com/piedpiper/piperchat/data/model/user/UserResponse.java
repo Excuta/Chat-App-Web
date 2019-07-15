@@ -6,14 +6,14 @@ import org.springframework.lang.Nullable;
 
 public class UserResponse {
     @NonNull
-    private final Long Id;
+    private final String Id;
     @NonNull
     private final String name;
     @NonNull
     private final String email;
 
     public UserResponse(Long id, String firstName, @Nullable String lastName, String email) {
-        Id = id;
+        Id = String.valueOf(id);
         StringBuilder name = new StringBuilder(firstName);
         if (lastName != null && !lastName.isEmpty()) name.append(" ").append(lastName);
         this.name = name.toString();
@@ -27,7 +27,7 @@ public class UserResponse {
                                 user.getEmail());
     }
 
-    public Long getId() {
+    public String getId() {
         return Id;
     }
 
