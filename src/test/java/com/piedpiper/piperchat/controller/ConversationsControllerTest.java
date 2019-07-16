@@ -2,7 +2,7 @@ package com.piedpiper.piperchat.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.piedpiper.piperchat.advice.GlobalAdvice;
-import com.piedpiper.piperchat.data.model.Conversation;
+import com.piedpiper.piperchat.data.model.conversation.Conversation;
 import com.piedpiper.piperchat.exception.UserNotFoundException;
 import com.piedpiper.piperchat.service.conversations.ConversationsService;
 import org.junit.Before;

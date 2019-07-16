@@ -1,5 +1,6 @@
 package com.piedpiper.piperchat.data.model;
 
+import com.piedpiper.piperchat.data.model.conversation.Conversation;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;

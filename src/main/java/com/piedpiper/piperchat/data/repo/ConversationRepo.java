@@ -1,6 +1,6 @@
 package com.piedpiper.piperchat.data.repo;
 
-import com.piedpiper.piperchat.data.model.Conversation;
+import com.piedpiper.piperchat.data.model.conversation.Conversation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
