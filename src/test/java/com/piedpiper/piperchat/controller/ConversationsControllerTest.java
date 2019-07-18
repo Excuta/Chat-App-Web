@@ -2,6 +2,7 @@ package com.piedpiper.piperchat.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.piedpiper.piperchat.advice.GlobalAdvice;
+import com.piedpiper.piperchat.bean.validation.IdParser;
 import com.piedpiper.piperchat.data.model.conversation.Conversation;
 import com.piedpiper.piperchat.exception.UserNotFoundException;
 import com.piedpiper.piperchat.service.conversations.ConversationsService;
@@ -31,11 +32,13 @@ public class ConversationsControllerTest {
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
+    private IdParser idParser;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        conversationsController = new ConversationsController(conversationsService);
+        idParser = new IdParser();
+        conversationsController = new ConversationsController(idParser, conversationsService);
         objectMapper = new ObjectMapper();
         mockMvc = MockMvcBuilders.standaloneSetup(conversationsController)
             .setControllerAdvice(GlobalAdvice.class).build();

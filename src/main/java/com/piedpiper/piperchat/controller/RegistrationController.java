@@ -1,11 +1,10 @@
 package com.piedpiper.piperchat.controller;
 
-import com.piedpiper.piperchat.data.model.User;
+import com.piedpiper.piperchat.data.model.user.User;
 import com.piedpiper.piperchat.data.model.user.UserResponse;
 import com.piedpiper.piperchat.data.requestbody.Credentials;
 import com.piedpiper.piperchat.service.registration.login.LoginService;
 import com.piedpiper.piperchat.service.registration.signup.SignUpService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;

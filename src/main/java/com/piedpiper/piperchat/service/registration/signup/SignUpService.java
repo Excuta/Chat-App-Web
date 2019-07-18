@@ -1,6 +1,6 @@
 package com.piedpiper.piperchat.service.registration.signup;
 
-import com.piedpiper.piperchat.data.model.User;
+import com.piedpiper.piperchat.data.model.user.User;
 
 /**
  * Created By: Yahia

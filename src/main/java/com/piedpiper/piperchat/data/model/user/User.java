@@ -1,4 +1,4 @@
-package com.piedpiper.piperchat.data.model;
+package com.piedpiper.piperchat.data.model.user;
 
 import com.piedpiper.piperchat.data.model.conversation.Conversation;
 import org.springframework.lang.Nullable;

@@ -1,8 +1,7 @@
 package com.piedpiper.piperchat.data.model.conversation;
 
 import com.piedpiper.piperchat.data.model.Message;
-import com.piedpiper.piperchat.data.model.User;
-import org.springframework.lang.NonNull;
+import com.piedpiper.piperchat.data.model.user.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -19,7 +18,6 @@ public class Conversation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
 
-    @NonNull
     @NotBlank
     private String name;
     @ManyToMany(mappedBy = "conversations")
@@ -83,7 +81,7 @@ public class Conversation {
         if (o == null || getClass() != o.getClass()) return false;
         Conversation that = (Conversation) o;
         return Id.equals(that.Id) &&
-            name.equals(that.name) &&
+            Objects.equals(name, that.name) &&
             users.equals(that.users) &&
             messages.equals(that.messages);
     }

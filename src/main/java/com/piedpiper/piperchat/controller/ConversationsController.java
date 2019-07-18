@@ -1,5 +1,6 @@
 package com.piedpiper.piperchat.controller;
 
+import com.piedpiper.piperchat.bean.validation.IdParser;
 import com.piedpiper.piperchat.data.model.conversation.ConversationResponse;
 import com.piedpiper.piperchat.service.conversations.ConversationsService;
 import org.springframework.http.ResponseEntity;
@@ -13,20 +14,17 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/conversations")
 public class ConversationsController {
+    private IdParser idParser;
     private ConversationsService conversationsService;
 
-    public ConversationsController(ConversationsService conversationsService) {
+    public ConversationsController(IdParser idParser, ConversationsService conversationsService) {
+        this.idParser = idParser;
         this.conversationsService = conversationsService;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Collection<ConversationResponse>> getConversations(@PathVariable("id") String userId) {
-        try {
-            long id = Long.parseLong(userId);
-            return ResponseEntity.ok(ConversationResponse.fromConversation(conversationsService.getUserConversations(id)));
-        } catch (NumberFormatException ex) {
-            ex.printStackTrace();
-            throw new IllegalArgumentException();
-        }
+        long id = idParser.parse(userId);
+        return ResponseEntity.ok(ConversationResponse.fromConversation(conversationsService.getUserConversations(id)));
     }
 }

@@ -1,6 +1,5 @@
 package com.piedpiper.piperchat.data.model.user;
 
-import com.piedpiper.piperchat.data.model.User;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 

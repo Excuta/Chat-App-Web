@@ -1,6 +1,6 @@
 package com.piedpiper.piperchat.data.repo;
 
-import com.piedpiper.piperchat.data.model.User;
+import com.piedpiper.piperchat.data.model.user.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

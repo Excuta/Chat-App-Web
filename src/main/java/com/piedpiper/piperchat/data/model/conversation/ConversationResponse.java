@@ -1,5 +1,7 @@
 package com.piedpiper.piperchat.data.model.conversation;
 
+import org.springframework.lang.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -10,6 +12,7 @@ import java.util.Objects;
  **/
 public class ConversationResponse {
     private final String id;
+    @Nullable
     private final String name;
 
     public ConversationResponse(String id, String name) {
@@ -33,6 +36,7 @@ public class ConversationResponse {
         return id;
     }
 
+    @Nullable
     public String getName() {
         return name;
     }
@@ -43,7 +47,7 @@ public class ConversationResponse {
         if (o == null || getClass() != o.getClass()) return false;
         ConversationResponse that = (ConversationResponse) o;
         return id.equals(that.id) &&
-            name.equals(that.name);
+            Objects.equals(name, that.name);
     }
 
     @Override

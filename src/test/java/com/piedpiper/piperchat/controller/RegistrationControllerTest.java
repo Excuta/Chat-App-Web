@@ -2,7 +2,7 @@ package com.piedpiper.piperchat.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.piedpiper.piperchat.advice.GlobalAdvice;
-import com.piedpiper.piperchat.data.model.User;
+import com.piedpiper.piperchat.data.model.user.User;
 import com.piedpiper.piperchat.data.requestbody.Credentials;
 import com.piedpiper.piperchat.exception.InvalidCredentialsException;
 import com.piedpiper.piperchat.service.registration.login.LoginService;

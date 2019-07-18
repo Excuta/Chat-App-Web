@@ -1,7 +1,7 @@
 package com.piedpiper.piperchat.service.registration.login;
 
 import com.piedpiper.piperchat.bean.security.BCryptor;
-import com.piedpiper.piperchat.data.model.User;
+import com.piedpiper.piperchat.data.model.user.User;
 import com.piedpiper.piperchat.data.repo.UserRepo;
 import com.piedpiper.piperchat.data.requestbody.Credentials;
 import com.piedpiper.piperchat.exception.InvalidCredentialsException;

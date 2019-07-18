@@ -1,7 +1,7 @@
 package com.piedpiper.piperchat.service.conversations;
 
 import com.piedpiper.piperchat.data.model.conversation.Conversation;
-import com.piedpiper.piperchat.data.model.User;
+import com.piedpiper.piperchat.data.model.user.User;
 import com.piedpiper.piperchat.data.repo.UserRepo;
 import com.piedpiper.piperchat.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
