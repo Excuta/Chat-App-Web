@@ -16,7 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class AuthorizationInterceptor implements HandlerInterceptor {
-    private String authHeaderName = "Bearer";
+    private String tokenHeaderName = "Token";
+    private String refreshTokenHeaderName = "Refresh";
     private AuthRepo authRepo;
     private TokenFactory tokenFactory;
 
@@ -27,18 +28,29 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        if (validToken(request)) return true;
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        return false;
+    }
+
+    private boolean validToken(HttpServletRequest request) {
         String token = getToken(request);
         if (token != null) {
-            UserAuth userAuth = getUserAuth(token);
+            UserAuth userAuth = getUserAuthByToken(token);
             if (userAuth != null) {
-                if (userAuth.isValid()) return true;
-                if (needsRefresh(userAuth)) {
+                return userAuth.isTokenValid();
+            }
+        } else {
+            token = getRefreshToken(request);
+            if (token != null) {
+                UserAuth userAuth = getUserAuthByRefreshToken(token);
+                if (userAuth.isRefreshTokenValid()) {
                     refreshAuth(userAuth);
                     authRepo.save(userAuth);
+                    return true;
                 }
             }
         }
-        response.setStatus(HttpStatus.BAD_REQUEST.value());
         return false;
     }
 
@@ -46,18 +58,23 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         userAuth.newToken(tokenFactory.createToken());
     }
 
-    private boolean needsRefresh(UserAuth userAuth) {
-        return userAuth.isTokenExpired() && !userAuth.isRefreshTokenExpired();
+    private UserAuth getUserAuthByToken(String tokenValue) {
+        return authRepo.findByToken(Token.fromValue(tokenValue));
     }
 
-    private UserAuth getUserAuth(String tokenValue) {
-        Token token = Token.fromValue(tokenValue);
-        return authRepo.findByTokenOrRefreshToken(token, token);
+    private UserAuth getUserAuthByRefreshToken(String tokenValue) {
+        return authRepo.findByRefreshToken(Token.fromValue(tokenValue));
     }
 
     private String getToken(HttpServletRequest request) {
-        String header = request.getHeader(authHeaderName);
-        if (header == null) header = request.getHeader(authHeaderName.toLowerCase());
+        String header = request.getHeader(tokenHeaderName);
+        if (header == null) header = request.getHeader(tokenHeaderName.toLowerCase());
+        return header;
+    }
+
+    private String getRefreshToken(HttpServletRequest request) {
+        String header = request.getHeader(refreshTokenHeaderName);
+        if (header == null) header = request.getHeader(refreshTokenHeaderName.toLowerCase());
         return header;
     }
 }

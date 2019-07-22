@@ -59,16 +59,12 @@ public class UserAuth {
         return Objects.hash(token, refreshToken, user);
     }
 
-    public boolean isTokenExpired() {
-        return token.isExpired();
+    public boolean isTokenValid() {
+        return !token.isExpired();
     }
 
-    public boolean isRefreshTokenExpired() {
-        return refreshToken.isExpired();
-    }
-
-    public boolean isValid() {
-        return !isTokenExpired() && !isRefreshTokenExpired();
+    public boolean isRefreshTokenValid() {
+        return !refreshToken.isExpired();
     }
 
     public void newToken(Token token) {

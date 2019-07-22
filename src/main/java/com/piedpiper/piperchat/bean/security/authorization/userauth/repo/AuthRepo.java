@@ -12,7 +12,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AuthRepo extends CrudRepository<UserAuth, Long> {
 
-    UserAuth findByTokenOrRefreshToken(Token token, Token refresh);
+    UserAuth findByToken(Token token);
+
+    UserAuth findByRefreshToken(Token refreshToken);
 
     UserAuth findByUser(User user);
 }
