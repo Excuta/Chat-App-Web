@@ -3,7 +3,7 @@ package com.piedpiper.piperchat.service.registration.login;
 import com.piedpiper.piperchat.bean.security.cryptography.BCryptor;
 import com.piedpiper.piperchat.data.model.user.User;
 import com.piedpiper.piperchat.data.repo.UserRepo;
-import com.piedpiper.piperchat.data.requestbody.Credentials;
+import com.piedpiper.piperchat.data.requestbody.CredentialsRequest;
 import com.piedpiper.piperchat.exception.InvalidCredentialsException;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +23,11 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public User attemptLogin(Credentials credentials) {
-        Optional<User> userOptional = userRepo.findFirstByEmail(credentials.getEmail());
+    public User attemptLogin(CredentialsRequest credentialsRequest) {
+        Optional<User> userOptional = userRepo.findFirstByEmail(credentialsRequest.getEmail());
         if (!userOptional.isPresent()) throw new InvalidCredentialsException();
         User user = userOptional.get();
-        if (!bCryptor.matches(credentials.getPassword(), user.getPassword())) throw new InvalidCredentialsException();
+        if (!bCryptor.matches(credentialsRequest.getPassword(), user.getPassword())) throw new InvalidCredentialsException();
         user.setLoggedIn(true);
         userRepo.save(user);
         return user;

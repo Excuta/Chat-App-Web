@@ -1,6 +1,6 @@
-package com.piedpiper.piperchat.bean.security.authorization.userauth;
+package com.piedpiper.piperchat.data.model.authorization.userauth;
 
-import com.piedpiper.piperchat.bean.security.authorization.token.Token;
+import com.piedpiper.piperchat.data.model.authorization.token.Token;
 import com.piedpiper.piperchat.data.model.user.User;
 import org.springframework.lang.NonNull;
 

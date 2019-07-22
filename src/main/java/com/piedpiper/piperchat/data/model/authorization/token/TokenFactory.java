@@ -1,7 +1,7 @@
-package com.piedpiper.piperchat.bean.security.authorization.token;
+package com.piedpiper.piperchat.data.model.authorization.token;
 
-import com.piedpiper.piperchat.bean.security.authorization.token.contract.TokenConfig;
-import com.piedpiper.piperchat.bean.security.authorization.token.contract.TokenGenerator;
+import com.piedpiper.piperchat.bean.security.authorization.TokenConfig;
+import com.piedpiper.piperchat.bean.security.authorization.TokenGenerator;
 
 /**
  * Created By: Yahia

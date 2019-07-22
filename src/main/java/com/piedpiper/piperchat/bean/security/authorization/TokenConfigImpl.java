@@ -1,4 +1,4 @@
-package com.piedpiper.piperchat.bean.security.authorization.token.contract;
+package com.piedpiper.piperchat.bean.security.authorization;
 
 /**
  * Created By: Yahia

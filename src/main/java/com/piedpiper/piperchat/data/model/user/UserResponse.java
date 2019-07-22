@@ -1,6 +1,7 @@
 package com.piedpiper.piperchat.data.model.user;
 
-import com.piedpiper.piperchat.bean.security.authorization.userauth.UserAuthResponse;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.piedpiper.piperchat.data.model.authorization.userauth.UserAuthResponse;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -41,5 +42,10 @@ public class UserResponse {
 
     public String getEmail() {
         return email;
+    }
+
+    @JsonProperty(value = "authorization")
+    public UserAuthResponse getUserAuthResponse() {
+        return userAuthResponse;
     }
 }

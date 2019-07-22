@@ -1,11 +1,11 @@
 package com.piedpiper.piperchat.config;
 
-import com.piedpiper.piperchat.bean.security.authorization.token.TokenFactory;
-import com.piedpiper.piperchat.bean.security.authorization.token.contract.TokenConfig;
-import com.piedpiper.piperchat.bean.security.authorization.token.contract.TokenConfigImpl;
-import com.piedpiper.piperchat.bean.security.authorization.token.contract.TokenGenerator;
-import com.piedpiper.piperchat.bean.security.authorization.token.contract.TokenGeneratorImpl;
-import com.piedpiper.piperchat.bean.security.authorization.userauth.UserAuthFactory;
+import com.piedpiper.piperchat.data.model.authorization.token.TokenFactory;
+import com.piedpiper.piperchat.bean.security.authorization.TokenConfig;
+import com.piedpiper.piperchat.bean.security.authorization.TokenConfigImpl;
+import com.piedpiper.piperchat.bean.security.authorization.TokenGenerator;
+import com.piedpiper.piperchat.bean.security.authorization.TokenGeneratorImpl;
+import com.piedpiper.piperchat.data.model.authorization.userauth.UserAuthFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

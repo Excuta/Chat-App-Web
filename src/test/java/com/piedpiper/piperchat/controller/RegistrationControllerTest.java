@@ -2,9 +2,9 @@ package com.piedpiper.piperchat.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.piedpiper.piperchat.advice.GlobalAdvice;
-import com.piedpiper.piperchat.bean.security.authorization.userauth.UserAuth;
+import com.piedpiper.piperchat.data.model.authorization.userauth.UserAuth;
 import com.piedpiper.piperchat.data.model.user.User;
-import com.piedpiper.piperchat.data.requestbody.Credentials;
+import com.piedpiper.piperchat.data.requestbody.CredentialsRequest;
 import com.piedpiper.piperchat.exception.InvalidCredentialsException;
 import com.piedpiper.piperchat.service.registration.auth.AuthService;
 import com.piedpiper.piperchat.service.registration.login.LoginService;
@@ -73,40 +73,40 @@ public class RegistrationControllerTest {
 
     @Test
     public void login_valid_input() throws Exception {
-        Credentials credentials = Credentials.test();
+        CredentialsRequest credentialsRequest = CredentialsRequest.test();
         User user = User.testUser();
         UserAuth userAuth = UserAuth.testAuth();
-        when(loginService.attemptLogin(credentials)).thenReturn(user);
+        when(loginService.attemptLogin(credentialsRequest)).thenReturn(user);
         when(authService.createAuthFor(user)).thenReturn(userAuth);
 
         mockMvc.perform(post("/registration/login")
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper.writeValueAsString(credentials))
+                            .content(objectMapper.writeValueAsString(credentialsRequest))
                             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk());
-        verify(loginService, times(1)).attemptLogin(credentials);
+        verify(loginService, times(1)).attemptLogin(credentialsRequest);
         verifyNoMoreInteractions(loginService);
     }
 
     @Test
     public void login_invalid_input() throws Exception {
-        Credentials credentials = new Credentials();
+        CredentialsRequest credentialsRequest = new CredentialsRequest();
 
         mockMvc.perform(post("/registration/login")
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper.writeValueAsString(credentials))
+                            .content(objectMapper.writeValueAsString(credentialsRequest))
                             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().is4xxClientError());
     }
 
     @Test
     public void login_valid_input_user_not_exist() throws Exception {
-        Credentials credentials = Credentials.test();
-        when(loginService.attemptLogin(credentials)).thenThrow(new InvalidCredentialsException());
+        CredentialsRequest credentialsRequest = CredentialsRequest.test();
+        when(loginService.attemptLogin(credentialsRequest)).thenThrow(new InvalidCredentialsException());
 
         mockMvc.perform(post("/registration/login")
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper.writeValueAsString(credentials))
+                            .content(objectMapper.writeValueAsString(credentialsRequest))
                             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().is4xxClientError());
     }

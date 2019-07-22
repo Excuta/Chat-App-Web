@@ -1,4 +1,4 @@
-package com.piedpiper.piperchat.bean.security.authorization.token;
+package com.piedpiper.piperchat.data.model.authorization.token;
 
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
@@ -14,7 +14,7 @@ import java.util.Objects;
 @Entity
 public class Token {
     @Id
-    @Column(length = 25)
+    @Column(length = 100)
     private final String value;
     @Nullable
     private final Long creationTimeInSeconds;

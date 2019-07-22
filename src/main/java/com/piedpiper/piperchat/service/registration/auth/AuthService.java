@@ -1,6 +1,6 @@
 package com.piedpiper.piperchat.service.registration.auth;
 
-import com.piedpiper.piperchat.bean.security.authorization.userauth.UserAuth;
+import com.piedpiper.piperchat.data.model.authorization.userauth.UserAuth;
 import com.piedpiper.piperchat.data.model.user.User;
 
 /**
@@ -8,4 +8,6 @@ import com.piedpiper.piperchat.data.model.user.User;
  */
 public interface AuthService {
     UserAuth createAuthFor(User user);
+
+    UserAuth refreshToken(String token);
 }

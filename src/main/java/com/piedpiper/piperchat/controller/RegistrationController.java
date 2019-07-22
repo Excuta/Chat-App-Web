@@ -1,10 +1,10 @@
 package com.piedpiper.piperchat.controller;
 
-import com.piedpiper.piperchat.bean.security.authorization.userauth.UserAuth;
-import com.piedpiper.piperchat.bean.security.authorization.userauth.UserAuthResponse;
+import com.piedpiper.piperchat.data.model.authorization.userauth.UserAuth;
+import com.piedpiper.piperchat.data.model.authorization.userauth.UserAuthResponse;
 import com.piedpiper.piperchat.data.model.user.User;
 import com.piedpiper.piperchat.data.model.user.UserResponse;
-import com.piedpiper.piperchat.data.requestbody.Credentials;
+import com.piedpiper.piperchat.data.requestbody.CredentialsRequest;
 import com.piedpiper.piperchat.service.registration.auth.AuthService;
 import com.piedpiper.piperchat.service.registration.login.LoginService;
 import com.piedpiper.piperchat.service.registration.signup.SignUpService;
@@ -42,9 +42,9 @@ public class RegistrationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserResponse> attemptLogin(@RequestBody @Valid Credentials credentials, BindingResult bindingResult) {
+    public ResponseEntity<UserResponse> attemptLogin(@RequestBody @Valid CredentialsRequest credentialsRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) throw new IllegalArgumentException();
-        User user = loginService.attemptLogin(credentials);
+        User user = loginService.attemptLogin(credentialsRequest);
         UserAuth userAuth = authService.createAuthFor(user);
         return ResponseEntity.ok(UserResponse.from(user, UserAuthResponse.from(userAuth)));
     }

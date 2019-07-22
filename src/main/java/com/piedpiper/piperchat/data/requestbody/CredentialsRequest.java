@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Created By: Yahia
  */
-public class Credentials {
+public class CredentialsRequest {
     @NotEmpty
     @NotNull
     @Email
@@ -20,16 +20,16 @@ public class Credentials {
     @Size(min = 3)
     private String password;
 
-    public Credentials() {
+    public CredentialsRequest() {
     }
 
-    public Credentials(@NotEmpty @NotNull @Email String email, @NotNull @NotEmpty @Size(min = 3) String password) {
+    public CredentialsRequest(@NotEmpty @NotNull @Email String email, @NotNull @NotEmpty @Size(min = 3) String password) {
         this.email = email;
         this.password = password;
     }
 
-    public static Credentials test() {
-        return new Credentials("email@domain.com", "validpassword123141");
+    public static CredentialsRequest test() {
+        return new CredentialsRequest("email@domain.com", "validpassword123141");
     }
 
     public String getEmail() {
@@ -44,7 +44,7 @@ public class Credentials {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Credentials that = (Credentials) o;
+        CredentialsRequest that = (CredentialsRequest) o;
         return email.equals(that.email) &&
             password.equals(that.password);
     }
