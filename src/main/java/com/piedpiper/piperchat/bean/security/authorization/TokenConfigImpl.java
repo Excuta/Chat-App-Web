@@ -4,21 +4,21 @@ package com.piedpiper.piperchat.bean.security.authorization;
  * Created By: Yahia
  */
 public class TokenConfigImpl implements TokenConfig {
-    private final Integer tokenDurationInMinutes;
-    private final Integer refreshTokenDurationInMinutes;
+    private final Integer tokenDurationInSeconds;
+    private final Integer refreshTokenDurationInSeconds;
 
-    public TokenConfigImpl(Integer tokenDurationInMinutes, Integer refreshTokenDurationInMinutes) {
-        this.tokenDurationInMinutes = tokenDurationInMinutes;
-        this.refreshTokenDurationInMinutes = refreshTokenDurationInMinutes;
+    public TokenConfigImpl(Integer tokenDurationInSeconds, Integer refreshTokenDurationInSeconds) {
+        this.tokenDurationInSeconds = tokenDurationInSeconds;
+        this.refreshTokenDurationInSeconds = refreshTokenDurationInSeconds;
     }
 
     @Override
-    public Integer getTokenDurationInMinutes() {
-        return tokenDurationInMinutes;
+    public Integer getTokenDurationInSeconds() {
+        return tokenDurationInSeconds;
     }
 
     @Override
-    public Integer getRefreshTokenDurationInMinutes() {
-        return refreshTokenDurationInMinutes;
+    public Integer getRefreshTokenDurationInSeconds() {
+        return refreshTokenDurationInSeconds;
     }
 }

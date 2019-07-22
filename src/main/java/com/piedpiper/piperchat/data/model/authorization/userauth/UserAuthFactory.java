@@ -1,5 +1,6 @@
 package com.piedpiper.piperchat.data.model.authorization.userauth;
 
+import com.piedpiper.piperchat.data.model.authorization.token.Token;
 import com.piedpiper.piperchat.data.model.authorization.token.TokenFactory;
 import com.piedpiper.piperchat.data.model.user.User;
 
@@ -15,6 +16,7 @@ public class UserAuthFactory {
     }
 
     public UserAuth create(User user) {
-        return new UserAuth(tokenFactory.createToken(), tokenFactory.createRefreshToken(), user);
+        Token refreshToken = tokenFactory.createRefreshToken();
+        return new UserAuth(tokenFactory.createToken(refreshToken), refreshToken, user);
     }
 }

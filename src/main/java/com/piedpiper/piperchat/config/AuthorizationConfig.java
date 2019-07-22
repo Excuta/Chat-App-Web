@@ -16,14 +16,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AuthorizationConfig {
 
-    @Value("${token.lifetimeinminutes}")
-    private Integer tokenLifeTimeInMinutes;
-    @Value("${refreshtoken.lifetimeinminutes}")
-    private Integer refreshTokenLifeTimeInMinutes;
+    @Value("${token.lifetimeinseconds}")
+    private Integer tokenLifeTimeInSeconds;
+    @Value("${refreshtoken.lifetimeinseconds}")
+    private Integer refreshTokenLifeTimeInSeconds;
 
     @Bean
     public TokenConfig tokenConfig() {
-        return new TokenConfigImpl(tokenLifeTimeInMinutes, refreshTokenLifeTimeInMinutes);
+        return new TokenConfigImpl(tokenLifeTimeInSeconds, refreshTokenLifeTimeInSeconds);
     }
 
     @Bean

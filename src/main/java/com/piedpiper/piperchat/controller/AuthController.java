@@ -30,7 +30,7 @@ public class AuthController {
     @PostMapping("/refresh")
     public ResponseEntity<UserAuthResponse> refreshToken(@RequestBody @Valid TokenRequest tokenRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) throw new InvalidTokenException();
-        UserAuth userAuth = authService.refreshToken(tokenRequest.getToken());
+        UserAuth userAuth = authService.refreshToken(tokenRequest.getRefreshToken());
         return ResponseEntity.ok(UserAuthResponse.from(userAuth));
     }
 }

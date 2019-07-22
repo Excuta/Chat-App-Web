@@ -15,11 +15,14 @@ import java.util.Objects;
 public class Token {
     @Id
     @Column(length = 100)
-    private final String value;
+    private String value;
     @Nullable
-    private final Long creationTimeInSeconds;
+    private Long creationTimeInSeconds;
     @Nullable
-    private final Long expirationTimeInSeconds;
+    private Long expirationTimeInSeconds;
+
+    public Token() {
+    }
 
     Token(@NonNull String value, @NonNull Long tokenDurationInSeconds) {
         this.creationTimeInSeconds = getCurrentTimeInSeconds();
@@ -41,6 +44,10 @@ public class Token {
         return new Token("");
     }
 
+    public static Long getCurrentTimeInSeconds() {
+        return System.currentTimeMillis() / 1000;
+    }
+
     @NonNull
 
     public String getValue() {
@@ -59,10 +66,6 @@ public class Token {
 
     public boolean isExpired() {
         return expirationTimeInSeconds != null && getCurrentTimeInSeconds() >= expirationTimeInSeconds;
-    }
-
-    private Long getCurrentTimeInSeconds() {
-        return System.currentTimeMillis() / 1000;
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.piedpiper.piperchat.data.model.authorization.userauth.UserAuthFactory
 import com.piedpiper.piperchat.data.model.user.User;
 import com.piedpiper.piperchat.data.repo.AuthRepo;
 import com.piedpiper.piperchat.exception.InvalidTokenException;
+import com.piedpiper.piperchat.exception.TokenExpiredException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -36,7 +37,9 @@ public class AuthServiceImpl implements AuthService {
     public UserAuth refreshToken(String token) {
         UserAuth userAuth = authRepo.findByRefreshToken(Token.fromValue(token));
         if (userAuth == null) throw new InvalidTokenException();
-        userAuth.newToken(tokenFactory.createToken());
+        if (userAuth.isRefreshTokenValid()) throw new TokenExpiredException();
+        userAuth.newToken(tokenFactory.createToken(userAuth.getRefreshToken()));
+        authRepo.save(userAuth);
         return userAuth;
     }
 }

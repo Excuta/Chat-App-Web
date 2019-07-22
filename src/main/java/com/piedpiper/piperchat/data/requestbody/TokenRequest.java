@@ -9,13 +9,16 @@ import javax.validation.constraints.NotNull;
 public class TokenRequest {
     @NotNull
     @NotBlank
-    private String token;
+    private String refreshToken;
 
-    public TokenRequest(@NotNull @NotBlank String token) {
-        this.token = token;
+    public TokenRequest() {
     }
 
-    public String getToken() {
-        return token;
+    public TokenRequest(@NotNull @NotBlank String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
     }
 }

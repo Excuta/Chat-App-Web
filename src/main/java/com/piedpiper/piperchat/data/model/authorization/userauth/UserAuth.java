@@ -14,16 +14,19 @@ import java.util.Objects;
 public class UserAuth {
     @NonNull
     @OneToOne(cascade = CascadeType.ALL)
-    private final Token refreshToken;
+    private Token refreshToken;
     @NonNull
     @OneToOne
-    private final User user;
+    private User user;
     @NonNull
     @OneToOne(cascade = CascadeType.ALL)
     private Token token;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    public UserAuth() {
+    }
 
     UserAuth(@NonNull Token token, @NonNull Token refreshToken, @NonNull User user) {
         this.token = token;
