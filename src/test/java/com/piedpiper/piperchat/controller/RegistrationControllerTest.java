@@ -2,9 +2,11 @@ package com.piedpiper.piperchat.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.piedpiper.piperchat.advice.GlobalAdvice;
+import com.piedpiper.piperchat.bean.security.authorization.userauth.UserAuth;
 import com.piedpiper.piperchat.data.model.user.User;
 import com.piedpiper.piperchat.data.requestbody.Credentials;
 import com.piedpiper.piperchat.exception.InvalidCredentialsException;
+import com.piedpiper.piperchat.service.registration.auth.AuthService;
 import com.piedpiper.piperchat.service.registration.login.LoginService;
 import com.piedpiper.piperchat.service.registration.signup.SignUpService;
 import org.junit.Before;
@@ -30,6 +32,8 @@ public class RegistrationControllerTest {
     private SignUpService signUpService;
     @Mock
     private LoginService loginService;
+    @Mock
+    private AuthService authService;
 
     private ObjectMapper objectMapper;
 
@@ -37,7 +41,7 @@ public class RegistrationControllerTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         objectMapper = new ObjectMapper();
-        registrationController = new RegistrationController(signUpService, loginService);
+        registrationController = new RegistrationController(signUpService, loginService, authService);
         mockMvc = MockMvcBuilders.standaloneSetup(registrationController)
             .setControllerAdvice(GlobalAdvice.class).build();
     }
@@ -70,8 +74,10 @@ public class RegistrationControllerTest {
     @Test
     public void login_valid_input() throws Exception {
         Credentials credentials = Credentials.test();
-        User user =  User.testUser();
+        User user = User.testUser();
+        UserAuth userAuth = UserAuth.testAuth();
         when(loginService.attemptLogin(credentials)).thenReturn(user);
+        when(authService.createAuthFor(user)).thenReturn(userAuth);
 
         mockMvc.perform(post("/registration/login")
                             .contentType(MediaType.APPLICATION_JSON)

@@ -13,11 +13,13 @@ import java.util.Objects;
 @Entity
 public class UserAuth {
     @NonNull
+    @OneToOne(cascade = CascadeType.ALL)
     private final Token refreshToken;
     @NonNull
     @OneToOne
     private final User user;
     @NonNull
+    @OneToOne(cascade = CascadeType.ALL)
     private Token token;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,6 +29,11 @@ public class UserAuth {
         this.token = token;
         this.refreshToken = refreshToken;
         this.user = user;
+    }
+
+    public static UserAuth testAuth() {
+        Token test = Token.test();
+        return new UserAuth(test, test, null);
     }
 
     @NonNull

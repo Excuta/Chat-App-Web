@@ -3,6 +3,7 @@ package com.piedpiper.piperchat.bean.security.authorization.token;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.Objects;
@@ -13,7 +14,7 @@ import java.util.Objects;
 @Entity
 public class Token {
     @Id
-    @NonNull
+    @Column(length = 25)
     private final String value;
     @Nullable
     private final Long creationTimeInSeconds;
@@ -34,6 +35,10 @@ public class Token {
 
     public static Token fromValue(String value) {
         return new Token(value);
+    }
+
+    public static Token test() {
+        return new Token("");
     }
 
     @NonNull
@@ -66,8 +71,8 @@ public class Token {
         if (o == null || getClass() != o.getClass()) return false;
         Token token = (Token) o;
         return value.equals(token.value) &&
-            creationTimeInSeconds.equals(token.creationTimeInSeconds) &&
-            expirationTimeInSeconds.equals(token.expirationTimeInSeconds);
+            Objects.equals(creationTimeInSeconds, token.creationTimeInSeconds) &&
+            Objects.equals(expirationTimeInSeconds, token.expirationTimeInSeconds);
     }
 
     @Override
