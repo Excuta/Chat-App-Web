@@ -4,8 +4,7 @@ import com.piedpiper.piperchat.bean.security.authorization.token.Token;
 import com.piedpiper.piperchat.data.model.user.User;
 import org.springframework.lang.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
@@ -14,12 +13,15 @@ import java.util.Objects;
 @Entity
 public class UserAuth {
     @NonNull
-    private final Token token;
-    @NonNull
     private final Token refreshToken;
     @NonNull
     @OneToOne
     private final User user;
+    @NonNull
+    private Token token;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     UserAuth(@NonNull Token token, @NonNull Token refreshToken, @NonNull User user) {
         this.token = token;
@@ -55,5 +57,21 @@ public class UserAuth {
     @Override
     public int hashCode() {
         return Objects.hash(token, refreshToken, user);
+    }
+
+    public boolean isTokenExpired() {
+        return token.isExpired();
+    }
+
+    public boolean isRefreshTokenExpired() {
+        return refreshToken.isExpired();
+    }
+
+    public boolean isValid() {
+        return !isTokenExpired() && !isRefreshTokenExpired();
+    }
+
+    public void newToken(Token token) {
+        this.token = token;
     }
 }

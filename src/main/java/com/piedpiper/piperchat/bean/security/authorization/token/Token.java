@@ -1,6 +1,7 @@
 package com.piedpiper.piperchat.bean.security.authorization.token;
 
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,32 +15,45 @@ public class Token {
     @Id
     @NonNull
     private final String value;
-    @NonNull
+    @Nullable
     private final Long creationTimeInSeconds;
-    @NonNull
+    @Nullable
     private final Long expirationTimeInSeconds;
 
-    Token(@NonNull String value,@NonNull Long tokenDurationInSeconds) {
+    Token(@NonNull String value, @NonNull Long tokenDurationInSeconds) {
         this.creationTimeInSeconds = getCurrentTimeInSeconds();
         expirationTimeInSeconds = creationTimeInSeconds + tokenDurationInSeconds;
         this.value = value;
     }
 
+    private Token(@NonNull String value) {
+        this.value = value;
+        this.creationTimeInSeconds = null;
+        this.expirationTimeInSeconds = null;
+    }
+
+    public static Token fromValue(String value) {
+        return new Token(value);
+    }
+
     @NonNull
+
     public String getValue() {
         return value;
     }
-    @NonNull
+
+    @Nullable
     public Long getCreationTimeInSeconds() {
         return creationTimeInSeconds;
     }
-    @NonNull
+
+    @Nullable
     public Long getExpirationTimeInSeconds() {
         return expirationTimeInSeconds;
     }
 
     public boolean isExpired() {
-        return getCreationTimeInSeconds() >= expirationTimeInSeconds;
+        return expirationTimeInSeconds != null && getCurrentTimeInSeconds() >= expirationTimeInSeconds;
     }
 
     private Long getCurrentTimeInSeconds() {
