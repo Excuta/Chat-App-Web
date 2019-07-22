@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d44cadcf-311b-40ae-b553-2b349778860c",
+		"_postman_id": "cbc5d630-b80b-4f57-9d1c-b90b4a585834",
 		"name": "piper chat",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -25,7 +25,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"firstName\":\"hi\",\r\n\t\"lastName\":\"you\",\r\n\t\"email\":\"ymr_15@live.com\",\r\n\t\"password\":\"validPassword123\"\r\n}"
+					"raw": "{\r\n\t\"firstName\":\"hi\",\r\n\t\"lastName\":\" you\",\r\n\t\"email\":\"ymr_15@live.com\",\r\n\t\"password\":\"122f1\"\r\n}"
 				},
 				"url": {
 					"raw": "localhost:8080/registration/signup",
@@ -55,7 +55,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\":\"ymr_15@live.com\",\n\t\"password\":\"validPassword123\"\n}"
+					"raw": "{\n\t\"email\":\"ymr_15@live.com\",\n\t\"password\":\"122f1\"\n}"
 				},
 				"url": {
 					"raw": "localhost:8080/registration/login",
@@ -66,6 +66,55 @@
 					"path": [
 						"registration",
 						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "conversation",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/conversations/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"conversations",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refresh token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"token\":\"\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/authorization/refresh",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authorization",
+						"refresh"
 					]
 				}
 			},

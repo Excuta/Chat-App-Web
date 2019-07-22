@@ -37,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
     public UserAuth refreshToken(String token) {
         UserAuth userAuth = authRepo.findByRefreshToken(Token.fromValue(token));
         if (userAuth == null) throw new InvalidTokenException();
-        if (userAuth.isRefreshTokenValid()) throw new TokenExpiredException();
+        if (!userAuth.isRefreshTokenValid()) throw new TokenExpiredException();
         userAuth.newToken(tokenFactory.createToken(userAuth.getRefreshToken()));
         authRepo.save(userAuth);
         return userAuth;

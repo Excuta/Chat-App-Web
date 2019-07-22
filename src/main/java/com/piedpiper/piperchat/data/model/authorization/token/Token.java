@@ -45,7 +45,8 @@ public class Token {
     }
 
     public static Long getCurrentTimeInSeconds() {
-        return System.currentTimeMillis() / 1000;
+        long l = System.currentTimeMillis() / 1000;
+        return l;
     }
 
     @NonNull
