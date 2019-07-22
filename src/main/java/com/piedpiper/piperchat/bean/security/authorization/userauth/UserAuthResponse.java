@@ -14,7 +14,7 @@ public class UserAuthResponse {
         this.refreshToken = refreshToken;
     }
 
-    public UserAuthResponse from(UserAuth userAuth) {
+    public static UserAuthResponse from(UserAuth userAuth) {
         return new UserAuthResponse(userAuth.getToken().getValue(), userAuth.getRefreshToken().getValue());
     }
 

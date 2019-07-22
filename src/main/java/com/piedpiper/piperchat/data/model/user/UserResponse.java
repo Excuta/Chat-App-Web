@@ -1,5 +1,6 @@
 package com.piedpiper.piperchat.data.model.user;
 
+import com.piedpiper.piperchat.bean.security.authorization.userauth.UserAuthResponse;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -10,20 +11,24 @@ public class UserResponse {
     private final String name;
     @NonNull
     private final String email;
+    @NonNull
+    private final UserAuthResponse userAuthResponse;
 
-    public UserResponse(Long id, String firstName, @Nullable String lastName, String email) {
+    public UserResponse(Long id, String firstName, @Nullable String lastName, String email, UserAuthResponse userAuthResponse) {
         Id = String.valueOf(id);
+        this.userAuthResponse = userAuthResponse;
         StringBuilder name = new StringBuilder(firstName);
         if (lastName != null && !lastName.isEmpty()) name.append(" ").append(lastName);
         this.name = name.toString();
         this.email = email;
     }
 
-    public static UserResponse fromUser(User user) {
+    public static UserResponse from(User user, UserAuthResponse userAuthResponse) {
         return new UserResponse(user.getId(),
                                 user.getFirstName(),
                                 user.getLastName(),
-                                user.getEmail());
+                                user.getEmail(),
+                                userAuthResponse);
     }
 
     public String getId() {
