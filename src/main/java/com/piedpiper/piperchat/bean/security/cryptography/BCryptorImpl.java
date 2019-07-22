@@ -1,4 +1,4 @@
-package com.piedpiper.piperchat.bean.security;
+package com.piedpiper.piperchat.bean.security.cryptography;
 
 import org.mindrot.jbcrypt.BCrypt;
 
