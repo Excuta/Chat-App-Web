@@ -20,14 +20,14 @@ public class ConversationResponse {
         this.name = name;
     }
 
-    public static ConversationResponse fromConversation(Conversation conversation) {
+    public static ConversationResponse from(Conversation conversation) {
         return new ConversationResponse(String.valueOf(conversation.getId()), conversation.getName());
     }
 
-    public static Collection<ConversationResponse> fromConversation(Collection<Conversation> conversations) {
+    public static Collection<ConversationResponse> from(Collection<Conversation> conversations) {
         ArrayList<ConversationResponse> conversationsResponse = new ArrayList<>();
         for (Conversation conversation : conversations) {
-            conversationsResponse.add(fromConversation(conversation));
+            conversationsResponse.add(from(conversation));
         }
         return conversationsResponse;
     }

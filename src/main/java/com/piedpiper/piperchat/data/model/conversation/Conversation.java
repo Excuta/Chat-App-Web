@@ -1,6 +1,6 @@
 package com.piedpiper.piperchat.data.model.conversation;
 
-import com.piedpiper.piperchat.data.model.Message;
+import com.piedpiper.piperchat.data.model.message.Message;
 import com.piedpiper.piperchat.data.model.user.User;
 
 import javax.persistence.*;

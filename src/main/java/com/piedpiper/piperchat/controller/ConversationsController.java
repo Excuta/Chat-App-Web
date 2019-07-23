@@ -2,6 +2,7 @@ package com.piedpiper.piperchat.controller;
 
 import com.piedpiper.piperchat.bean.validation.IdParser;
 import com.piedpiper.piperchat.data.model.conversation.ConversationResponse;
+import com.piedpiper.piperchat.data.model.conversation.ConversationsReponseBody;
 import com.piedpiper.piperchat.service.conversations.ConversationsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +24,9 @@ public class ConversationsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Collection<ConversationResponse>> getConversations(@PathVariable("id") String userId) {
+    public ResponseEntity<ConversationsReponseBody> getConversations(@PathVariable("id") String userId) {
         long id = idParser.parse(userId);
-        return ResponseEntity.ok(ConversationResponse.fromConversation(conversationsService.getUserConversations(id)));
+        Collection<ConversationResponse> conversationResponseList = ConversationResponse.from(conversationsService.getUserConversations(id));
+        return ResponseEntity.ok(new ConversationsReponseBody(conversationResponseList));
     }
 }

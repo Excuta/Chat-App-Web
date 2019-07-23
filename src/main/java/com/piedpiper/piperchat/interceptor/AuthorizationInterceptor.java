@@ -1,7 +1,6 @@
 package com.piedpiper.piperchat.interceptor;
 
 import com.piedpiper.piperchat.data.model.authorization.token.Token;
-import com.piedpiper.piperchat.data.model.authorization.token.TokenFactory;
 import com.piedpiper.piperchat.data.model.authorization.userauth.UserAuth;
 import com.piedpiper.piperchat.data.repo.AuthRepo;
 import org.springframework.http.HttpStatus;
@@ -16,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class AuthorizationInterceptor implements HandlerInterceptor {
+    private static final String KEY_TOKEN = "User-Token";
     private String tokenHeaderName = "Token";
     private AuthRepo authRepo;
 
@@ -35,7 +35,9 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         if (token != null) {
             UserAuth userAuth = getUserAuthByToken(token);
             if (userAuth != null) {
-                return userAuth.isTokenValid();
+                boolean tokenValid = userAuth.isTokenValid();
+                if (tokenValid) request.getSession().setAttribute(KEY_TOKEN, userAuth.getToken());
+                return tokenValid;
             }
         }
         return false;
@@ -44,10 +46,10 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     private UserAuth getUserAuthByToken(String tokenValue) {
         return authRepo.findByToken(Token.fromValue(tokenValue));
     }
+
     private String getToken(HttpServletRequest request) {
         String header = request.getHeader(tokenHeaderName);
         if (header == null) header = request.getHeader(tokenHeaderName.toLowerCase());
         return header;
     }
-
 }
