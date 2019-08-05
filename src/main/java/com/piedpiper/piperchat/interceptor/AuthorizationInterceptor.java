@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class AuthorizationInterceptor implements HandlerInterceptor {
+    public static final String sTOKEN_KEY = "TOKEN";
     private static final String KEY_TOKEN = "User-Token";
     private String tokenHeaderName = "Token";
     private AuthRepo authRepo;
@@ -25,19 +26,20 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        if (validToken(request)) return true;
+        String token = getToken(request);
+        if (validToken(token)) {
+            request.setAttribute(sTOKEN_KEY, token);
+            return true;
+        }
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         return false;
     }
 
-    private boolean validToken(HttpServletRequest request) {
-        String token = getToken(request);
+    private boolean validToken(String token) {
         if (token != null) {
             UserAuth userAuth = getUserAuthByToken(token);
             if (userAuth != null) {
-                boolean tokenValid = userAuth.isTokenValid();
-                if (tokenValid) request.getSession().setAttribute(KEY_TOKEN, userAuth.getToken());
-                return tokenValid;
+                return userAuth.isTokenValid();
             }
         }
         return false;
